@@ -18,4 +18,4 @@ vim.keymap.set("v", "<leader>t", "g<C-a>") -- increment numbers selected in visu
 -- vim.keymap.set("c", "w!!", "w !sudo tee -S > /dev/null %") -- experimental requires console input of password
 
 -- Open compiler
-vim.api.nvim_set_keymap("n", "<F6>", "<cmd>CompilerOpen<cr>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>co", "<cmd>CompilerOpen<cr>", { noremap = true, silent = true })
