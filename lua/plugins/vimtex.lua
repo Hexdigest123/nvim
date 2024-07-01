@@ -1,6 +1,7 @@
 return {
   "lervag/vimtex",
   lazy = false, -- Important to disable lazy loading
+  enabled = false,
   init = function()
     -- Set VimTeX options here
     vim.g.vimtex_compiler_method = "latexmk"

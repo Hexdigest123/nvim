@@ -1,4 +1,4 @@
-return { -- The task runner we use
+return {
   "stevearc/overseer.nvim",
   cmd = { "CompilerOpen", "CompilerToggleResults", "CompilerRedo" },
   opts = {

@@ -15,7 +15,42 @@ vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true }) -- chmod file executable
 
 vim.keymap.set("v", "<leader>t", "g<C-a>") -- increment numbers selected in visual mode
--- vim.keymap.set("c", "w!!", "w !sudo tee -S > /dev/null %") -- experimental requires console input of password
 
--- Open compiler
+-- Compiler Interaction
+
 vim.api.nvim_set_keymap("n", "<leader>co", "<cmd>CompilerOpen<cr>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>ct", "<cmd>CompilerToggleResults<cr>", { noremap = true, silent = true })
+
+-- Native Terminal
+
+local function normal_mode(keymap, action)
+  vim.keymap.set("n", keymap, action)
+end
+
+local function visual_mode(keymap, action)
+  vim.keymap.set("v", keymap, action)
+end
+
+normal_mode("<leader>ts", function()
+  vim.cmd("belowright 12split")
+  vim.cmd("set winfixheight")
+  vim.cmd("term")
+  vim.cmd("startinsert")
+end)
+
+normal_mode("<leader>tu", function()
+  vim.cmd("terminal")
+  vim.cmd("startinsert")
+end)
+
+normal_mode("<leader>tt", function()
+  vim.cmd("tabnew")
+  vim.cmd("terminal")
+  vim.cmd("startinsert")
+end)
+
+normal_mode("<leader>tv", function()
+  vim.cmd("vsplit")
+  vim.cmd("terminal")
+  vim.cmd("startinsert")
+end)
