@@ -21,6 +21,9 @@ vim.keymap.set("v", "<leader>t", "g<C-a>") -- increment numbers selected in visu
 vim.api.nvim_set_keymap("n", "<leader>co", "<cmd>CompilerOpen<cr>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>ct", "<cmd>CompilerToggleResults<cr>", { noremap = true, silent = true })
 
+-- ESC = strg c
+vim.keymap.set({ "i", "n", "v" }, "<C-C>", "<esc>", { desc = "Make Ctrl+C behave exactly like escape." })
+
 -- Native Terminal
 
 local function normal_mode(keymap, action)
