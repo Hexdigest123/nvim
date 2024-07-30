@@ -12,9 +12,7 @@
     "lazyvim.plugins.extras.lang.svelte",
     "lazyvim.plugins.extras.lang.tailwind",
     "lazyvim.plugins.extras.lang.typescript",
-    "lazyvim.plugins.extras.lsp.none-ls",
-    "lazyvim.plugins.extras.test.core",
-    "lazyvim.plugins.extras.util.rest"
+    "lazyvim.plugins.extras.test.core"
   ],
   "news": {
     "NEWS.md": "6520"
