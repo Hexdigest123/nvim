@@ -5,6 +5,7 @@ Feel free to use them but please don't blame me if something goes wrong.
 
 ## Requirements
 
+- neovim (0.10.0+)
 - ripgrep
 - lazygit
 - nodejs

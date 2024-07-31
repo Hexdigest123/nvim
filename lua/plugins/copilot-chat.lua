@@ -1,6 +1,5 @@
 return {
   "CopilotC-Nvim/CopilotChat.nvim",
-  branch = "canary",
   cmd = "CopilotChat",
   opts = function()
     local user = vim.env.NVUSER or "User"
