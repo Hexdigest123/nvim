@@ -7,7 +7,6 @@ Feel free to use them but please don't blame me if something goes wrong.
 
 - neovim (0.10.0+)
 - ripgrep
-- lazygit
 - nodejs
 - fzf (optional)
 - fd (fd-find)
