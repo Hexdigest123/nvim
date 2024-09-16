@@ -24,7 +24,7 @@ local write_to_buffer = function(result)
   end
 
   -- Create a new buffer
-  vim.api.nvim_command("enew") -- This opens a new empty buffer
+  vim.api.nvim_command("vnew") -- This opens a new empty buffer
   local bufnr = vim.api.nvim_get_current_buf()
 
   -- Set the lines of the new buffer
@@ -32,6 +32,9 @@ local write_to_buffer = function(result)
 
   -- Optionally, set the buffer to be not modifiable if it's meant to be read-only
   vim.api.nvim_buf_set_option(bufnr, "modifiable", false)
+  vim.api.nvim_buf_set_option(bufnr, "buftype", "nofile")
+  vim.api.nvim_buf_set_option(bufnr, "bufhidden", "hide")
+  vim.api.nvim_buf_set_option(bufnr, "swapfile", false)
 end
 
 local get_maven_groupId = function()
@@ -56,12 +59,11 @@ local check_maven_groupID = function(groupID)
 end
 
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = "java",
   callback = function()
     vim.api.nvim_buf_create_user_command(0, "JR", function()
       local groupID = get_maven_groupId()
 
-      if check_maven_groupID(groupID) then
+      if not check_maven_groupID(groupID) then
         return
       end
 
@@ -75,12 +77,11 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = "java",
   callback = function()
     vim.api.nvim_buf_create_user_command(0, "JRCustom", function()
       local groupID = get_maven_groupId()
 
-      if check_maven_groupID(groupID) then
+      if not check_maven_groupID(groupID) then
         return
       end
 
@@ -96,12 +97,11 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = "java",
   callback = function()
     vim.api.nvim_buf_create_user_command(0, "JRC", function()
       local groupID = get_maven_groupId()
 
-      if check_maven_groupID(groupID) then
+      if not check_maven_groupID(groupID) then
         return
       end
 
@@ -121,11 +121,10 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 vim.api.nvim_create_autocmd("BufRead", {
-  pattern = "java",
   callback = function()
     vim.api.nvim_buf_create_user_command(0, "JValidate", function()
       local groupID = get_maven_groupId()
-      if check_maven_groupID(groupID) then
+      if not check_maven_groupID(groupID) then
         return
       end
       local result = vim.fn.system("mvn validate")
@@ -136,11 +135,10 @@ vim.api.nvim_create_autocmd("BufRead", {
 })
 
 vim.api.nvim_create_autocmd("BufRead", {
-  pattern = "java",
   callback = function()
     vim.api.nvim_buf_create_user_command(0, "JPackage", function()
       local groupID = get_maven_groupId()
-      if check_maven_groupID(groupID) then
+      if not check_maven_groupID(groupID) then
         return
       end
       local result = vim.fn.system("mvn package")
@@ -151,11 +149,10 @@ vim.api.nvim_create_autocmd("BufRead", {
 })
 
 vim.api.nvim_create_autocmd("BufRead", {
-  pattern = "java",
   callback = function()
     vim.api.nvim_buf_create_user_command(0, "JTest", function()
       local groupID = get_maven_groupId()
-      if check_maven_groupID(groupID) then
+      if not check_maven_groupID(groupID) then
         return
       end
       local result = vim.fn.system("mvn package")
