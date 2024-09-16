@@ -44,18 +44,27 @@ local get_maven_groupId = function()
   return result:gsub("%s+", "")
 end
 
+local check_maven_groupID = function(groupID)
+  if not groupID then
+    print("Failed to read pom.xml inside your project root(using mvn)")
+    return false
+  elseif groupID == "org.apache.maven" then
+    print("Please enter nvim from your root project directory")
+    return false
+  end
+  return true
+end
+
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "java",
   callback = function()
     vim.api.nvim_buf_create_user_command(0, "JR", function()
       local groupID = get_maven_groupId()
 
-      if not groupID then
-        print("Failed to read pom.xml inside your project root(using mvn)")
-      elseif groupID == "org.apache.maven" then
-        print("Please enter nvim from your root project directory")
+      if check_maven_groupID(groupID) then
         return
       end
+
       run_command(vim.fn.system(compiler_command), function()
         local result = vim.fn.system("java -cp target/classes " .. groupID .. ".App")
         write_to_buffer(result)
@@ -71,10 +80,7 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.api.nvim_buf_create_user_command(0, "JRCustom", function()
       local groupID = get_maven_groupId()
 
-      if not groupID then
-        print("Failed to read pom.xml inside your project root(using mvn)")
-      elseif groupID == "org.apache.maven" then
-        print("Please enter nvim from your root project directory")
+      if check_maven_groupID(groupID) then
         return
       end
 
@@ -95,12 +101,10 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.api.nvim_buf_create_user_command(0, "JRC", function()
       local groupID = get_maven_groupId()
 
-      if not groupID then
-        print("Failed to read pom.xml inside your project root(using mvn)")
-      elseif groupID == "org.apache.maven" then
-        print("Please enter nvim from your root project directory")
+      if check_maven_groupID(groupID) then
         return
       end
+
       local fileName = vim.fn.expand("%:t"):match("(.+)%..+"):gsub("%s+", "")
       if not fileName then
         print("Failed to read file name")
@@ -114,6 +118,51 @@ vim.api.nvim_create_autocmd("FileType", {
     end, { desc = "Compile and run Java project from the current file" })
   end,
   desc = "Create custom command to compile and run Java projects",
+})
+
+vim.api.nvim_create_autocmd("BufRead", {
+  pattern = "java",
+  callback = function()
+    vim.api.nvim_buf_create_user_command(0, "JValidate", function()
+      local groupID = get_maven_groupId()
+      if check_maven_groupID(groupID) then
+        return
+      end
+      local result = vim.fn.system("mvn validate")
+      write_to_buffer(result)
+    end, { desc = "Validate current project" })
+  end,
+  desc = "Create custom command too validate MVN Projects",
+})
+
+vim.api.nvim_create_autocmd("BufRead", {
+  pattern = "java",
+  callback = function()
+    vim.api.nvim_buf_create_user_command(0, "JPackage", function()
+      local groupID = get_maven_groupId()
+      if check_maven_groupID(groupID) then
+        return
+      end
+      local result = vim.fn.system("mvn package")
+      write_to_buffer(result)
+    end, { desc = "Packages current project into a .jar file" })
+  end,
+  desc = "Create custom command too package MVN projects",
+})
+
+vim.api.nvim_create_autocmd("BufRead", {
+  pattern = "java",
+  callback = function()
+    vim.api.nvim_buf_create_user_command(0, "JTest", function()
+      local groupID = get_maven_groupId()
+      if check_maven_groupID(groupID) then
+        return
+      end
+      local result = vim.fn.system("mvn package")
+      write_to_buffer(result)
+    end, { desc = "Run the test suite of MVN in the current project" })
+  end,
+  desc = "Create custom command too package MVN projects",
 })
 
 vim.api.nvim_create_autocmd("BufRead", {
