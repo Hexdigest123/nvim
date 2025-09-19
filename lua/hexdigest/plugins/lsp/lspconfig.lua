@@ -6,7 +6,8 @@ return {
 		{ "folke/neodev.nvim", opts = {} },
 	},
 	config = function()
-		local nvim_lsp = require("lspconfig")
+		-- Corrected line: removed the parentheses
+		local lspconfig = vim.lsp.config
 		local on_attach = function(client, bufnr)
 			vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 			vim.diagnostic.config({ virtual_text = true })
@@ -56,51 +57,47 @@ return {
 		end
 
 		local capabilities = require("cmp_nvim_lsp").default_capabilities()
-		nvim_lsp.ts_ls.setup({
+		vim.lsp.config("ts_ls", {
 			on_attach = on_attach,
 			capabilities = capabilities,
 		})
-		nvim_lsp.lua_ls.setup({
+		vim.lsp.config("lua_ls", {
 			on_attach = on_attach,
 			capabilities = capabilities,
 		})
-		nvim_lsp.pyright.setup({
+		vim.lsp.config("pyright", {
 			on_attach = on_attach,
 			capabilities = capabilities,
 		})
-		nvim_lsp.clangd.setup({
+		vim.lsp.config("clangd", {
 			on_attach = on_attach,
 			capabilities = capabilities,
 		})
-		nvim_lsp.intelephense.setup({
+		vim.lsp.config("intelephense", {
 			on_attach = on_attach,
 			capabilities = capabilities,
 		})
-		nvim_lsp.texlab.setup({
+		vim.lsp.config("texlab", {
 			on_attach = on_attach,
 			capabilities = capabilities,
 		})
-		nvim_lsp.jdtls.setup({
+		vim.lsp.config("jdtls", {
 			on_attach = on_attach,
 			capabilities = capabilities,
 		})
-		nvim_lsp.tailwindcss.setup({
+		vim.lsp.config("tailwindcss", {
 			on_attach = on_attach,
 			capabilities = capabilities,
 		})
-		nvim_lsp.svelte.setup({
+		vim.lsp.config("svelte", {
 			on_attach = on_attach,
 			capabilities = capabilities,
 		})
-		nvim_lsp.dockerls.setup({
+		vim.lsp.config("dockerls", {
 			on_attach = on_attach,
 			capabilities = capabilities,
 		})
-		nvim_lsp.gopls.setup({
-			on_attach = on_attach,
-			capabilities = capabilities,
-		})
-		nvim_lsp.cssls.setup({
+		vim.lsp.config("gopls", {
 			on_attach = on_attach,
 			capabilities = capabilities,
 		})
