@@ -82,7 +82,7 @@ return {
         }
       end,
     })
-    vim.lsp.enable("angularls")
+    -- vim.lsp.enable("angularls")
 
     vim.lsp.config("cssls", {
       on_attach = on_attach,
