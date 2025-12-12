@@ -16,7 +16,6 @@ return {
         htmlangular = { "prettierd" },
         json = { "prettierd" },
         yaml = { "prettierd" },
-        astro = { "prettierd" },
         lua = { "stylua" },
         python = { "black" },
         c = { "clang-format" },
