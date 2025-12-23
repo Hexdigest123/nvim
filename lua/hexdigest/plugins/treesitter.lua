@@ -12,17 +12,27 @@ return {
         enable_rename = true,
         enable_close_on_slash = false,
       },
-      per_filetype = {},
     })
-    require("nvim-treesitter").setup({
-      ensure_installed = {},
+
+    local configs = require("nvim-treesitter")
+
+    configs.setup({
+      ensure_installed = {
+        "svelte",
+        "javascript",
+        "typescript",
+        "html",
+        "css",
+        "lua",
+      },
       sync_install = false,
       auto_install = true,
-      ignore_install = {},
       highlight = {
         enable = true,
         additional_vim_regex_highlighting = false,
-        disable = { "latex" },
+      },
+      indent = {
+        enable = true,
       },
       incremental_selection = {
         enable = true,
@@ -33,6 +43,14 @@ return {
           node_decremental = "<bs>",
         },
       },
+    })
+
+    -- Nach setup() hinzufügen:
+    vim.api.nvim_create_autocmd("FileType", {
+      pattern = "svelte",
+      callback = function()
+        vim.treesitter.start()
+      end,
     })
   end,
 }
