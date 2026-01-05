@@ -60,8 +60,41 @@ return {
     vim.lsp.config("ts_ls", {
       on_attach = on_attach,
       capabilities = capabilities,
+      root_markers = { { "nx.json", "angular.json", "package.json" }, ".git" },
     })
     vim.lsp.enable("ts_ls")
+
+    vim.lsp.config("angularls", {
+      on_attach = on_attach,
+      capabilities = capabilities,
+      root_markers = { { "nx.json", "angular.json" }, ".git" },
+      on_new_config = function(new_config, _)
+        local project_root = new_config.root_dir
+        local ngls_path = project_root .. "/node_modules/@angular/language-server"
+        new_config.cmd = {
+          "node",
+          ngls_path .. "/bin/ngserver",
+          "--stdio",
+          "--tsProbeLocations",
+          project_root,
+          "--ngProbeLocations",
+          project_root,
+        }
+      end,
+    })
+    -- vim.lsp.enable("angularls")
+
+    vim.lsp.config("cssls", {
+      on_attach = on_attach,
+      capabilities = capabilities,
+    })
+    vim.lsp.enable("cssls")
+
+    vim.lsp.config("html", {
+      on_attach = on_attach,
+      capabilities = capabilities,
+    })
+    vim.lsp.enable("html")
 
     vim.lsp.config("lua_ls", {
       on_attach = on_attach,

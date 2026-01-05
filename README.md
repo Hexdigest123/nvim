@@ -8,6 +8,8 @@
 ## Requirements
 
 - ripgrep
+- fd
+- tree-sitter
 - texlive (full or to the extent needed)
 - nvim 0.9.5>= (works best with the nightly build of nvim)
 
