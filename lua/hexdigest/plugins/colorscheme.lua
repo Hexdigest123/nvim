@@ -2,7 +2,7 @@ return {
   "catppuccin/nvim",
   lazy = false,
   opts = {
-    transparent_background = false,
+    transparent_background = true,
     color_overrides = {
       mocha = {
         base = "#1e1e2e",
